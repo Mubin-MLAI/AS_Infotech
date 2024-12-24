@@ -1,0 +1,195 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}
+Add Product
+{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-sm border-light">
+                <div class="card-body">
+                    <h1 class="text-center mb-4">
+                        Add Product
+                    </h1>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.name.id_for_label }}" class="form-label">
+                                    Product Name
+                                </label>
+                                {{ form.name }}
+                                <div class="text-danger">{{ form.name.errors }}</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.serialno.id_for_label }}" class="form-label">
+                                    Serial No
+                                </label>
+                                {{ form.serialno }}
+                                <div class="text-danger">{{ form.serialno.errors }}</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.make_and_models.id_for_label }}" class="form-label">
+                                    Make & Models
+                                </label>
+                                {{ form.make_and_models }}
+                                <div class="text-danger">{{ form.make_and_models.errors }}</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.processor.id_for_label }}" class="form-label">
+                                    Processor
+                                </label>
+                                {{ form.processor }}
+                                <div class="text-danger">{{ form.processor.errors }}</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.ram.id_for_label }}" class="form-label">
+                                    RAM
+                                </label>
+                                {{ form.ram }}
+                                <div class="text-danger">{{ form.ram.errors }}</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="ram_qty" class="form-label">
+                                    Quantity
+                                </label>
+                                <input type="number" id="ram_qty" name="ram_qty" class="form-control" value="1">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.hdd.id_for_label }}" class="form-label">
+                                    HDD
+                                </label>
+                                {{ form.hdd }}
+                                <div class="text-danger">{{ form.hdd.errors }}</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="hdd_qty" class="form-label">
+                                    Quantity
+                                </label>
+                                <input type="number" id="hdd_qty" name="hdd_qty" class="form-control" value="1">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.ssd.id_for_label }}" class="form-label">
+                                    SSD
+                                </label>
+                                {{ form.ssd }}
+                                <div class="text-danger">{{ form.ssd.errors }}</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="ssd_qty" class="form-label">
+                                    Quantity
+                                </label>
+                                <input type="number" id="ssd_qty" name="ssd_qty" class="form-control" value="1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.smps.id_for_label }}" class="form-label">
+                                    SMPS
+                                </label>
+                                <!-- Dropdown for SMPS status -->
+                                <select id="smps_status" name="smps_status" class="form-control"
+                                    onchange="toggleReplacementDescription()">
+                                    <option value="available">Available</option>
+                                    <option value="not_available">Not Available</option>
+                                    <option value="replacement">Replacement</option>
+                                </select>
+                                <div class="text-danger">{{ form.smps.errors }}</div>
+                            </div>
+
+                            <!-- Textbox for replacement description (hidden by default) -->
+                            <div class="col-md-6 mb-3" id="replacement_description_div" style="display: none;">
+                                <label for="replacement_description" class="form-label">
+                                    Replacement Description
+                                </label>
+                                <input type="text" id="replacement_description" name="replacement_description"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.motherboard.id_for_label }}" class="form-label">
+                                    Motherboard
+                                </label>
+                                <!-- Dropdown for Motherboard status -->
+                                <select id="motherboard_status" name="motherboard_status" class="form-control"
+                                    onchange="toggleMotherboardReplacementDescription()">
+                                    <option value="available">Available</option>
+                                    <option value="not_available">Not Available</option>
+                                    <option value="replacement">Replacement</option>
+                                </select>
+                                <div class="text-danger">{{ form.motherboard.errors }}</div>
+                            </div>
+
+                            <!-- Textbox for motherboard replacement description (hidden by default) -->
+                            <div class="col-md-6 mb-3" id="motherboard_replacement_description_div"
+                                style="display: none;">
+                                <label for="motherboard_replacement_description" class="form-label">
+                                    Replacement Description
+                                </label>
+                                <input type="text" id="motherboard_replacement_description"
+                                    name="motherboard_replacement_description" class="form-control">
+                            </div>
+                        </div>
+                </div>
+                <div class="form-group text-center">
+                    <button class="btn btn-success btn-lg" type="submit">
+                        <i class="fas fa-check"></i> Submit
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    // Function to toggle the visibility of the replacement description field
+    function toggleReplacementDescription() {
+        var smpsStatus = document.getElementById("smps_status").value;
+        var replacementDescriptionDiv = document.getElementById("replacement_description_div");
+
+        if (smpsStatus === "replacement") {
+            replacementDescriptionDiv.style.display = "block"; // Show the description field
+        } else {
+            replacementDescriptionDiv.style.display = "none"; // Hide the description field
+        }
+    }
+
+    // Call the function on page load to ensure the description field is hidden or shown based on the current value
+    window.onload = toggleReplacementDescription;
+
+    // Function to toggle the visibility of the motherboard replacement description field
+    function toggleMotherboardReplacementDescription() {
+        var motherboardStatus = document.getElementById("motherboard_status").value;
+        var replacementDescriptionDiv = document.getElementById("motherboard_replacement_description_div");
+
+        if (motherboardStatus === "replacement") {
+            replacementDescriptionDiv.style.display = "block"; // Show the description field
+        } else {
+            replacementDescriptionDiv.style.display = "none"; // Hide the description field
+        }
+    }
+
+    // Call the function on page load to ensure the description field is hidden or shown based on the current value
+    window.onload = toggleMotherboardReplacementDescription;
+</script>
+{% endblock content %}
